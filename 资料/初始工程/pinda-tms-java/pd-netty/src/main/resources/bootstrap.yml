@@ -1,0 +1,15 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  port: 8192
+  connection-timeout: 50000ms
+
+spring:
+  application:
+    name: pd-netty
+  profiles:
+      active: dev
+  main:
+    allow-bean-definition-overriding: true

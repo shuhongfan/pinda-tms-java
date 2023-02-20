@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.pinda.mapper.CourierMapper">
+    <select id="findByPage" resultType="com.itheima.pinda.DTO.TaskPickupDispatchDTO"
+            parameterType="com.itheima.pinda.DTO.AppCourierQueryDTO">
+        select tpd_.* from pd_task_pickup_dispatch tpd_
+        left join pd_order o_
+        on tpd_.order_id = o_.id
+        left join pd_transport_order to_
+        on o_.id = to_.order_id
+        <where>
+            <if test="params.courierId != null and params.courierId != ''">
+                and tpd_.courier_id = #{params.courierId}
+            </if>
+            <if test="params.status != null and params.status != ''">
+                and tpd_.status = #{params.status}
+            </if>
+            <if test="params.taskType != null and params.taskType != ''">
+                and tpd_.task_type = #{params.taskType}
+            </if>
+            <if test="params.date != null and params.date != ''">
+
+                and tpd_.actual_end_time &gt;= STR_TO_DATE(CONCAT(#{params.date},' ','00:00:00'), '%Y-%m-%d %H:%i:%s')
+                and tpd_.actual_end_time &lt;= STR_TO_DATE(CONCAT(#{params.date},' ','23:59:59'), '%Y-%m-%d %H:%i:%s')
+            </if>
+            <if test="params.keyword != null and params.keyword != ''">
+                and (
+                o_.sender_name LIKE CONCAT('%',#{params.keyword},'%')
+                or o_.sender_phone LIKE CONCAT('%',#{params.keyword},'%')
+                or to_.id LIKE CONCAT('%',#{params.keyword},'%')
+                )
+            </if>
+        </where>
+        order by tpd_.create_time desc
+    </select>
+</mapper>

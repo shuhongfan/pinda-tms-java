@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.pinda.mapper.base.PdGoodsTypeMapper">
+
+    <select id="findByPage" resultType="com.itheima.pinda.entity.base.PdGoodsType">
+        SELECT
+        goods_type.*
+        FROM
+        pd_goods_type goods_type
+        <if test="truckTypeId != null || truckTypeName != null">
+            LEFT JOIN pd_truck_type_goods_type truck_type_goods_type ON goods_type.id = truck_type_goods_type.goods_type_id
+        </if>
+        <if test="truckTypeName != null">
+            LEFT JOIN pd_truck_type truck_type ON 	truck_type_goods_type.truck_type_id=truck_type.id
+        </if>
+        <where>
+            goods_type.status=1
+            <if test="truckTypeName != null">
+                AND truck_type.status=1
+            </if>
+            <if test="name != null">
+                AND goods_type.name LIKE "%"#{name}"%"
+            </if>
+            <if test="truckTypeId != null">
+                AND truck_type_goods_type.truck_type_id = #{truckTypeId}
+            </if>
+            <if test="truckTypeName != null">
+                AND truck_type.name LIKE "%"#{truckTypeName}"%"
+            </if>
+        </where>
+    </select>
+
+</mapper>

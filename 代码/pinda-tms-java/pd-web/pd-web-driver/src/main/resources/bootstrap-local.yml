@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 111.231.76.210:58848
+        group: pinda-tms
+        namespace: c035ed13-9d51-4a81-9573-9162320515cc
+      config:
+        server-addr: 111.231.76.210:58848
+        file-extension: yml
+        group: pinda-tms
+        namespace: c035ed13-9d51-4a81-9573-9162320515cc
+
+  # jackson时间格式化
+  jackson:
+    time-zone: ${spring.jackson.time-zone}
+    date-format: ${spring.jackson.date-format}
+  servlet:
+    multipart:
+      max-file-size: ${spring.servlet.multipart.max-file-size}
+      max-request-size: ${spring.servlet.multipart.max-request-size}
+      enabled: ${spring.servlet.multipart.enabled}

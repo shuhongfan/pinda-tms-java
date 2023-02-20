@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.5.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.itheima</groupId>
+    <artifactId>pinda-tms-java</artifactId>
+    <packaging>pom</packaging>
+    <!--聚合下面的子模块-->
+    <modules>
+        <module>pd-common</module>
+        <module>pd-base</module>
+        <module>pd-oms</module>
+        <module>pd-work</module>
+        <module>pd-user</module>
+        <module>pd-service-api</module>
+        <module>pd-web</module>
+        <module>pd-dispatch</module>
+        <module>pd-aggregation</module>
+        <module>pd-druid</module>
+        <module>pd-netty</module>
+    </modules>
+    <version>1.0.0-SNAPSHOT</version>
+    <properties>
+        <java.version>1.8</java.version>
+        <!-- Spring Cloud 版本信息 -->
+        <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
+        <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
+        <swagger.version>2.9.2</swagger.version>
+        <spring-cloud-alibaba-version>2.2.1.RELEASE</spring-cloud-alibaba-version>
+        <druid.version>1.1.22</druid.version>
+        <java.version>1.8</java.version>
+        <shiro.version>1.4.0</shiro.version>
+        <commons.lang.version>2.6</commons.lang.version>
+        <commons.io.version>2.5</commons.io.version>
+        <lombok.version>1.18.4</lombok.version>
+        <commons.io.version>2.5</commons.io.version>
+        <http-core.version>4.4.9</http-core.version>
+        <httpclient.version>4.5.11</httpclient.version>
+        <mybatis-spring-boot-starter.version>2.1.0</mybatis-spring-boot-starter.version>
+        <mybatis-plus.version>3.3.0</mybatis-plus.version>
+        <drools.version>6.5.0.Final</drools.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Cloud begin-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Spring Cloud end-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

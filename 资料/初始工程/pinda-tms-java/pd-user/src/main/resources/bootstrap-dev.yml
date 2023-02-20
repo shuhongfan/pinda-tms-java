@@ -1,0 +1,117 @@
+spring:
+  redis:
+    host: ${pinda.redis.ip}
+    password: ${pinda.redis.password}
+    port: ${pinda.redis.port}
+    database: ${pinda.redis.database}
+  cloud:
+    nacos:
+      username: tms
+      password: itheima123
+      discovery:
+        server-addr: 68.79.63.42:8848
+        group: pinda-tms
+        namespace: 6107f553-3214-48d8-89c3-945f8446e3d9
+      config:
+        server-addr: 68.79.63.42:8848
+        file-extension: yml
+        group: pinda-tms
+        namespace: 6107f553-3214-48d8-89c3-945f8446e3d9
+
+  # jackson时间格式化
+  jackson:
+    time-zone: ${spring.jackson.time-zone}
+    date-format: ${spring.jackson.date-format}
+  servlet:
+    multipart:
+      max-file-size: ${spring.servlet.multipart.max-file-size}
+      max-request-size: ${spring.servlet.multipart.max-request-size}
+      enabled: ${spring.servlet.multipart.enabled}
+
+  datasource:
+      druid:
+          type: ${spring.datasource.druid.type}
+          driver-class-name: ${spring.datasource.druid.driver-class-name}
+          url: ${spring.datasource.druid.url}
+          username: ${spring.datasource.druid.username}
+          password: ${spring.datasource.druid.password}
+          initial-size: ${spring.datasource.druid.initial-size}
+          max-active: ${spring.datasource.druid.max-active}
+          min-idle: ${spring.datasource.druid.min-idle}
+          max-wait: ${spring.datasource.druid.max-wait}
+          pool-prepared-statements: ${spring.datasource.druid.pool-prepared-statements}
+          max-pool-prepared-statement-per-connection-size: ${spring.datasource.druid.max-pool-prepared-statement-per-connection-size}
+          time-between-eviction-runs-millis: ${spring.datasource.druid.time-between-eviction-runs-millis}
+          min-evictable-idle-time-millis: ${spring.datasource.druid.min-evictable-idle-time-millis}
+          test-while-idle: ${spring.datasource.druid.test-while-idle}
+          test-on-borrow: ${spring.datasource.druid.test-on-borrow}
+          test-on-return: ${spring.datasource.druid.test-on-return}
+          stat-view-servlet:
+              enabled: ${spring.datasource.druid.stat-view-servlet.stat-view-servlet}
+              url-pattern: ${spring.datasource.druid.stat-view-servlet.url-pattern}
+          filter:
+              stat:
+                  log-slow-sql: ${spring.datasource.druid.filter.stat.log-slow-sql}
+                  slow-sql-millis: ${spring.datasource.druid.filter.stat.slow-sql-millis}
+                  merge-sql: ${spring.datasource.druid.filter.stat.merge-sql}
+              wall:
+                  config:
+                      multi-statement-allow: ${spring.datasource.druid.filter.wall.config.multi-statement-allow}
+
+j2cache:
+  cache-clean-mode: passive
+  allow-null-values: true
+  redis-client: lettuce #指定redis客户端使用lettuce，也可以使用Jedis
+  l2-cache-open: true #开启二级缓存
+  broadcast: net.oschina.j2cache.cache.support.redis.SpringRedisPubSubPolicy
+  #  broadcast: jgroups
+  L1: #指定一级缓存提供者为caffeine
+    provider_class: caffeine
+  L2: #指定二级缓存提供者为redis
+    provider_class: net.oschina.j2cache.cache.support.redis.SpringRedisProvider
+    config_section: lettuce
+  sync_ttl_to_redis: true
+  default_cache_null_object: false
+  serialization: fst  #序列化方式：fst、kyro、Java
+caffeine:
+  properties: /caffeine.properties   # 这个配置文件需要放在项目中
+lettuce:
+  mode: single
+  namespace:
+  storage: generic
+  channel: j2cache
+  scheme: redis
+  hosts: ${pinda.redis.ip}:${pinda.redis.port}
+  password: ${pinda.redis.password}
+  database: ${pinda.redis.database}
+  sentinelMasterId:
+  maxTotal: 100
+  maxIdle: 10
+  minIdle: 10
+  timeout: 10000
+
+#mybatis
+mybatis-plus:
+  mapper-locations: ${mybatis-plus.mapper-locations}
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: ${mybatis-plus.typeAliasesPackage}
+  global-config:
+    #数据库相关配置
+    db-config:
+      #主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID", ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: ${mybatis-plus.global-config.db-config.id-type}
+      #字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
+      field-strategy: ${mybatis-plus.global-config.db-config.field-strategy}
+      #驼峰下划线转换
+      column-underline: ${mybatis-plus.global-config.db-config.column-underline}
+      logic-delete-value: ${mybatis-plus.global-config.db-config.logic-delete-value}
+      logic-not-delete-value: ${mybatis-plus.global-config.db-config.logic-not-delete-value}
+    banner: ${mybatis-plus.global-config.banner}
+
+  #原生配置
+  configuration:
+    map-underscore-to-camel-case: ${mybatis-plus.configuration.map-underscore-to-camel-case}
+    cache-enabled: ${mybatis-plus.configuration.cache-enabled}
+    call-setters-on-nulls: ${mybatis-plus.configuration.call-setters-on-nulls}
+    jdbc-type-for-null: ${mybatis-plus.configuration.jdbc-type-for-null}
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itheima.pinda.mapper.OrderCargoMapper" >
+  <resultMap id="BaseResultMap" type="com.itheima.pinda.entity.OrderCargo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="tran_order_id" property="tranOrderId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="goods_type_id" property="goodsTypeId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="cargo_value" property="cargoValue" jdbcType="DECIMAL" />
+    <result column="cargo_barcode" property="cargoBarcode" jdbcType="VARCHAR" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="volume" property="volume" jdbcType="DECIMAL" />
+    <result column="weight" property="weight" jdbcType="DECIMAL" />
+    <result column="total_volume" property="totalVolume" jdbcType="DECIMAL" />
+    <result column="total_weight" property="totalWeight" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.itheima.pinda.entity.OrderCargo" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, tran_order_id,goods_type_id, name, unit, cargo_value, cargo_barcode, quantity, volume, weight,
+    total_volume, total_weight
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pd_order_cargo
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from pd_order_cargo
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="com.itheima.pinda.entity.OrderCargo" >
+    insert into pd_order_cargo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="tranOrderId != null" >
+        tran_order_id,
+      </if>
+      <if test="goodsTypeId != null" >
+        goods_type_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="cargoValue != null" >
+        cargo_value,
+      </if>
+      <if test="cargoBarcode != null" >
+        cargo_barcode,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="volume != null" >
+        volume,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="totalVolume != null" >
+        total_volume,
+      </if>
+      <if test="totalWeight != null" >
+        total_weight,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="tranOrderId != null" >
+        #{tranOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTypeId != null" >
+        #{goodsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoValue != null" >
+        #{cargoValue,jdbcType=DECIMAL},
+      </if>
+      <if test="cargoBarcode != null" >
+        #{cargoBarcode,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="volume != null" >
+        #{volume,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="totalVolume != null" >
+        #{totalVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="totalWeight != null" >
+        #{totalWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.itheima.pinda.entity.OrderCargo" >
+    update pd_order_cargo
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="tranOrderId != null" >
+        tran_order_id = #{tranOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTypeId != null" >
+        goods_type_id = #{goodsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoValue != null" >
+        cargo_value = #{cargoValue,jdbcType=DECIMAL},
+      </if>
+      <if test="cargoBarcode != null" >
+        cargo_barcode = #{cargoBarcode,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="volume != null" >
+        volume = #{volume,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="totalVolume != null" >
+        total_volume = #{totalVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="totalWeight != null" >
+        total_weight = #{totalWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.itheima.pinda.entity.OrderCargo" >
+    update pd_order_cargo
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      tran_order_id = #{tranOrderId,jdbcType=VARCHAR},
+      goods_type_id = #{goodsTypeId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      cargo_value = #{cargoValue,jdbcType=DECIMAL},
+      cargo_barcode = #{cargoBarcode,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      volume = #{volume,jdbcType=DECIMAL},
+      weight = #{weight,jdbcType=DECIMAL},
+      total_volume = #{totalVolume,jdbcType=DECIMAL},
+      total_weight = #{totalWeight,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.itheima.pinda.entity.OrderCargo" >
+    update pd_order_cargo
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      tran_order_id = #{tranOrderId,jdbcType=VARCHAR},
+      goods_type_id = #{goodsTypeId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      cargo_value = #{cargoValue,jdbcType=DECIMAL},
+      cargo_barcode = #{cargoBarcode,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      volume = #{volume,jdbcType=DECIMAL},
+      weight = #{weight,jdbcType=DECIMAL},
+      total_volume = #{totalVolume,jdbcType=DECIMAL},
+      total_weight = #{totalWeight,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

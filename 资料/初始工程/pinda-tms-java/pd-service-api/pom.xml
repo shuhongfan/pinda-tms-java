@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>pinda-tms-java</artifactId>
+        <groupId>com.itheima</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>pd-service-api</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>pd-service-base-api</module>
+        <module>pd-service-oms-api</module>
+        <module>pd-service-work-api</module>
+        <module>pd-service-user-api</module>
+        <module>pd-service-aggregation-api</module>
+        <module>pd-service-base-domain</module>
+        <module>pd-service-oms-domain</module>
+        <module>pd-service-work-domain</module>
+        <module>pd-service-user-domain</module>
+        <module>pd-service-aggregation-domain</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.0.18.Final</version>
+        </dependency>
+    </dependencies>
+</project>

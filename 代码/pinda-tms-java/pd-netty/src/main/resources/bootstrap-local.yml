@@ -1,0 +1,35 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 111.231.76.210:58848
+        group: pinda-tms
+        namespace: c035ed13-9d51-4a81-9573-9162320515cc
+      config:
+        server-addr: 111.231.76.210:58848
+        file-extension: yml
+        group: pinda-tms
+        namespace: c035ed13-9d51-4a81-9573-9162320515cc
+
+  # jackson时间格式化
+  jackson:
+    time-zone: ${spring.jackson.time-zone}
+    date-format: ${spring.jackson.date-format}
+  servlet:
+    multipart:
+      max-file-size: ${spring.servlet.multipart.max-file-size}
+      max-request-size: ${spring.servlet.multipart.max-request-size}
+      enabled: ${spring.servlet.multipart.enabled}
+  # kafka
+  kafka:
+    bootstrap-servers: ${spring.kafka.bootstrap-servers}
+    listener:   # 指定listener 容器中的线程数，用于提高并发量
+      concurrency: ${spring.kafka.listener.concurrency}
+    producer:
+      retries: ${spring.kafka.producer.retries}
+      batch-size: ${spring.kafka.producer.batch-size}
+      buffer-memory: ${spring.kafka.producer.buffer-memory}
+      key-serializer: ${spring.kafka.producer.key-serializer}
+      value-serializer: ${spring.kafka.producer.value-serializer}
+    consumer:
+      group-id: ${spring.kafka.consumer.group-id}

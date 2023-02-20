@@ -1,0 +1,10 @@
+server:
+  port: 9103
+spring:
+  application:
+     name: trace-3
+  sleuth:
+       sampler:
+          probability: 1     #这个是收集比例，1表示100% ,全部收集
+  zipkin:
+    base-url: http://localhost:9411

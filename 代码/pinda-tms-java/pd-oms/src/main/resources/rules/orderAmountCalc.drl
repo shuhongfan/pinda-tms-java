@@ -1,0 +1,71 @@
+package rules;
+
+import com.itheima.pinda.entity.fact.AddressRule
+import com.itheima.pinda.entity.fact.AddressCheckResult
+import com.itheima.pinda.service.DroolsRulesService
+import com.itheima.pinda.service.impl.DroolsRulesServiceImpl
+
+dialect "java"
+
+rule "1千克以内20元"
+    activation-group "mygroup"
+    salience 10
+    when
+        addressRule : AddressRule(totalWeight != null && totalWeight <= 1.00)
+        checkResult : AddressCheckResult()
+    then
+        checkResult.setPostCodeResult(true);
+        checkResult.setResult("20");
+        System.out.println("1千克以内20元");
+end
+
+rule "1千克以上，订单距离在200公里以下的，首重1千克，首重价格20元，续重每1千克资费为6元"
+    activation-group "mygroup"
+    salience 9
+    when
+        addressRule : AddressRule(totalWeight != null && totalWeight > 1.00 && distance <= 200.00)
+        checkResult : AddressCheckResult()
+    then
+        addressRule.setFirstFee(20.00);
+        addressRule.setFirstWeight(1.00);
+        addressRule.setContinuedFee(6.00);
+        DroolsRulesService droolsRulesService = new DroolsRulesServiceImpl();
+        String orderAmount = droolsRulesService.calcFee(addressRule);
+        checkResult.setPostCodeResult(true);
+        checkResult.setResult(orderAmount);
+        System.out.println("1千克以上，订单距离在200公里以下的，首重1千克，首重价格20元，续重每1千克资费为6元");
+end
+
+rule "1千克以上，订单距离在200~500公里的，首重1千克，首重价格20元，续重每1千克资费为9元"
+    activation-group "mygroup"
+    salience 8
+    when
+        addressRule : AddressRule(totalWeight != null && totalWeight > 1.00 && distance <= 500.00)
+        checkResult : AddressCheckResult()
+    then
+        addressRule.setFirstFee(20.00);
+        addressRule.setFirstWeight(1.00);
+        addressRule.setContinuedFee(9.00);
+        DroolsRulesService droolsRulesService = new DroolsRulesServiceImpl();
+        String orderAmount = droolsRulesService.calcFee(addressRule);
+        checkResult.setPostCodeResult(true);
+        checkResult.setResult(orderAmount);
+        System.out.println("1千克以上，订单距离在200~500公里的，首重1千克，首重价格20元，续重每1千克资费为9元");
+end
+
+rule "1千克以上，订单距离在500公里以上的，首重1千克，首重价格20元，续重每1千克资费为15元"
+    activation-group "mygroup"
+    salience 7
+    when
+        addressRule : AddressRule(totalWeight != null && totalWeight > 1.00 && distance > 500.00)
+        checkResult : AddressCheckResult()
+    then
+        addressRule.setFirstFee(20.00);
+        addressRule.setFirstWeight(1.00);
+        addressRule.setContinuedFee(15.00);
+        DroolsRulesService droolsRulesService = new DroolsRulesServiceImpl();
+        String orderAmount = droolsRulesService.calcFee(addressRule);
+        checkResult.setPostCodeResult(true);
+        checkResult.setResult(orderAmount);
+        System.out.println("1千克以上，订单距离在500公里以上的，首重1千克，首重价格20元，续重每1千克资费为15元");
+end

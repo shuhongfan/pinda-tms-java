@@ -1,0 +1,45 @@
+stages:
+    - build
+    - run
+server-package:
+    stage: build
+    script:
+        - source /etc/profile
+        - /usr/local/apache-maven-3.6.3/bin/mvn clean install -Dmaven.test.skip=true
+        - docker build -t tms/service-base --build-arg PACKAGE_PATH=pd-base/target/*.jar --build-arg EXPOSE_PORT=8185 .
+        - docker build -t tms/service-oms --build-arg PACKAGE_PATH=pd-oms/target/*.jar --build-arg EXPOSE_PORT=8186 .
+        - docker build -t tms/service-work --build-arg PACKAGE_PATH=pd-work/target/*.jar --build-arg EXPOSE_PORT=8187 .
+        - docker build -t tms/service-user --build-arg PACKAGE_PATH=pd-user/target/*.jar --build-arg EXPOSE_PORT=8189 .
+        - docker build -t tms/service-dispatch --build-arg PACKAGE_PATH=pd-dispatch/target/*.jar --build-arg EXPOSE_PORT=8190 .
+        - docker build -t tms/service-aggregation --build-arg PACKAGE_PATH=pd-aggregation/target/*.jar --build-arg EXPOSE_PORT=8191 .
+        - docker build -t tms/service-netty --build-arg PACKAGE_PATH=pd-netty/target/*.jar --build-arg EXPOSE_PORT=8192 .
+        - docker build -t tms/service-druid --build-arg PACKAGE_PATH=pd-druid/target/*.jar --build-arg EXPOSE_PORT=8193 .
+        - docker build -t tms/web-manager --build-arg PACKAGE_PATH=pd-web/pd-web-manager/target/*.jar --build-arg EXPOSE_PORT=8161 .
+        - docker build -t tms/web-driver --build-arg PACKAGE_PATH=pd-web/pd-web-driver/target/*.jar --build-arg EXPOSE_PORT=8162 .
+        - docker build -t tms/web-courier --build-arg PACKAGE_PATH=pd-web/pd-web-courier/target/*.jar --build-arg EXPOSE_PORT=8163 .
+        - docker build -t tms/web-customer --build-arg PACKAGE_PATH=pd-web/pd-web-customer/target/*.jar --build-arg EXPOSE_PORT=8164 .
+    only:
+        - merge-project
+    tags:
+        - tms-runner
+server-runner:
+    stage: run
+    script:
+        - pwd
+        - docker rm -f $(docker ps -a |  grep "tms"  | awk '{print $1}')
+        - docker run -d -p 8185:8185 --name tms-service-base tms/service-base
+        - docker run -d -p 8186:8186 --name tms-service-oms tms/service-oms
+        - docker run -d -p 8187:8187 --name tms-service-work tms/service-work
+        - docker run -d -p 8189:8189 --name tms-service-user tms/service-user
+        - docker run -d -p 8190:8190 --name tms-service-dispatch tms/service-dispatch
+        - docker run -d -p 8191:8191 --name tms-service-aggregation tms/service-aggregation
+        - docker run -d -p 8192:8192 -p 10001:10001 --name tms-service-netty tms/service-netty
+        - docker run -d -p 8193:8193 --name tms-service-druid tms/service-druid
+        - docker run -d -p 8161:8161 --name tms-web-manager tms/web-manager
+        - docker run -d -p 8162:8162 --name tms-web-driver tms/web-driver
+        - docker run -d -p 8163:8163 --name tms-web-courier tms/web-courier
+        - docker run -d -p 8164:8164 --name tms-web-customer tms/web-customer
+    only:
+        - merge-project
+    tags:
+        - tms-runner
