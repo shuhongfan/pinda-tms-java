@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="pd-web-courier" />
+        <module name="pd-service-aggregation-api" />
+        <module name="pd-service-user-domain" />
+        <module name="pd-service-work-domain" />
+        <module name="pd-oms" />
+        <module name="pd-service-aggregation-domain" />
+        <module name="pd-service-base-api" />
+        <module name="pd-user" />
+        <module name="pd-base" />
+        <module name="pd-dispatch" />
+        <module name="pd-web-driver" />
+        <module name="pd-web-customer" />
+        <module name="pd-aggregation" />
+        <module name="pd-service-base-domain" />
+        <module name="pd-web-manager" />
+        <module name="pd-netty" />
+        <module name="pd-service-oms-api" />
+        <module name="pd-service-user-api" />
+        <module name="pd-common" />
+        <module name="pd-druid" />
+        <module name="pd-work" />
+        <module name="pd-service-oms-domain" />
+        <module name="pd-service-work-api" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="pd-aggregation" options="-parameters" />
+      <module name="pd-base" options="-parameters" />
+      <module name="pd-common" options="-parameters" />
+      <module name="pd-dispatch" options="-parameters" />
+      <module name="pd-druid" options="-parameters" />
+      <module name="pd-netty" options="-parameters" />
+      <module name="pd-oms" options="-parameters" />
+      <module name="pd-service-aggregation-api" options="-parameters" />
+      <module name="pd-service-aggregation-domain" options="-parameters" />
+      <module name="pd-service-base-api" options="-parameters" />
+      <module name="pd-service-base-domain" options="-parameters" />
+      <module name="pd-service-oms-api" options="-parameters" />
+      <module name="pd-service-oms-domain" options="-parameters" />
+      <module name="pd-service-user-api" options="-parameters" />
+      <module name="pd-service-user-domain" options="-parameters" />
+      <module name="pd-service-work-api" options="-parameters" />
+      <module name="pd-service-work-domain" options="-parameters" />
+      <module name="pd-user" options="-parameters" />
+      <module name="pd-web-courier" options="-parameters" />
+      <module name="pd-web-customer" options="-parameters" />
+      <module name="pd-web-driver" options="-parameters" />
+      <module name="pd-web-manager" options="-parameters" />
+      <module name="pd-work" options="-parameters" />
+    </option>
+  </component>
+</project>

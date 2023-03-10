@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/pd-aggregation/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-base/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-dispatch/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-druid/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-netty/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-oms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-service-api/pd-service-aggregation-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-service-api/pd-service-aggregation-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-service-api/pd-service-base-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-service-api/pd-service-base-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-service-api/pd-service-oms-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-service-api/pd-service-oms-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-service-api/pd-service-user-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-service-api/pd-service-user-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-service-api/pd-service-work-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-service-api/pd-service-work-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-service-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-service-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-user/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-web/pd-web-courier/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-web/pd-web-customer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-web/pd-web-driver/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-web/pd-web-manager/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-web/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pd-work/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

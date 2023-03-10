@@ -1,0 +1,23 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  port: 8187
+  connection-timeout: 50000ms
+#  servlet:
+#    context-path: /pd-work
+
+spring:
+  application:
+    name: pd-work
+  # 环境 dev|test|prod
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true
+
+
+
+
+
