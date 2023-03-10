@@ -14,6 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class GoodsTypeController {
      */
     @PostMapping("")
     @ApiOperation(value = "添加货物类型")
-    public GoodsTypeDto saveGoodsType(@RequestBody GoodsTypeDto goodsTypeDto) {
+    public GoodsTypeDto saveGoodsType(@Validated @RequestBody GoodsTypeDto goodsTypeDto) {
         PdGoodsType pdGoodsType = new PdGoodsType();
         BeanUtils.copyProperties(goodsTypeDto, pdGoodsType);
 
