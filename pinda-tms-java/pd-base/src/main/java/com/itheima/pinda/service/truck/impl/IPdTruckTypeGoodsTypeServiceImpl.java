@@ -18,6 +18,11 @@ public class IPdTruckTypeGoodsTypeServiceImpl extends ServiceImpl<PdTruckTypeGoo
     @Autowired
     private CustomIdGenerator idGenerator;
 
+    @Override
+    public void saveTruckTypeGoodsType(PdTruckTypeGoodsType pdTruckTypeGoodsType) {
+
+    }
+
     /**
      * 批量添加车辆类型与货物类型关联
      * @param pdTruckTypeGoodsTypes

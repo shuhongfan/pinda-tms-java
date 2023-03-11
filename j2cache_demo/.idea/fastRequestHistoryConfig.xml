@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="fastRequestHistoryConfig">
+    <option name="historyList">
+      <list>
+        <ResponseHistory>
+          <option name="className" value="com.shf.MyController" />
+          <option name="enableEnv" value="port" />
+          <option name="enableProject" value="local" />
+          <option name="method" value="getInfos" />
+          <option name="methodType" value="GET" />
+          <option name="paramGroup">
+            <ParamGroupCollection>
+              <option name="className" value="com.shf.MyController" />
+              <option name="method" value="getInfos" />
+              <option name="methodDescription" value="New Request" />
+              <option name="multipartKeyValueListJson" value="[]" />
+              <option name="originUrl" value="/cache/getInfos" />
+              <option name="pathParamsKeyValueListJson" value="[]" />
+              <option name="returnDocument" value="[&#10;&#9;&quot;No comment,Type =String&quot;&#10;]" />
+              <option name="url" value="/cache/getInfos" />
+              <option name="urlEncodedKeyValueListJson" value="[]" />
+              <option name="urlParamsKeyValueListJson" value="[]" />
+            </ParamGroupCollection>
+          </option>
+          <option name="requestInfo" value="Request Url: http://127.0.0.1:63040/cache/getInfos&#13;&#10;Request Headers: &#13;&#10;    Accept: application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#13;&#10;    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool&#13;&#10;    Accept-Encoding: gzip, deflate&#13;&#10;    Accept-Language: zh-CN,zh;q=0.8&#13;&#10;Request Body: &#13;&#10;    null&#13;&#10;" />
+          <option name="response" value="ConnectException: Connection refused: no further information" />
+          <option name="url" value="/cache/getInfos" />
+        </ResponseHistory>
+      </list>
+    </option>
+  </component>
+</project>

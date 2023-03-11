@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="fastRequestCurrentParamGroup">
+    <option name="className" value="com.shf.MyController" />
+    <option name="method" value="getInfos" />
+    <option name="module" value="j2cache_demo" />
+    <option name="originUrl" value="/cache/getInfos" />
+    <option name="returnDocument" value="[&#10;&#9;&quot;No comment,Type =String&quot;&#10;]" />
+    <option name="url" value="/cache/getInfos" />
+  </component>
+</project>

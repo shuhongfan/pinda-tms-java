@@ -1,0 +1,46 @@
+server:
+  port: 9000
+pinda:
+  redis:
+    ip: 127.0.0.1
+    port: 6379
+    password:
+    database: 0
+spring:
+  redis:
+    host: ${pinda.redis.ip}
+    password: ${pinda.redis.password}
+    port: ${pinda.redis.port}
+    database: ${pinda.redis.database}
+
+j2cache:
+  cache-clean-mode: passive
+  allow-null-values: true
+  redis-client: lettuce #指定redis客户端使用lettuce，也可以使用Jedis
+  l2-cache-open: true #开启二级缓存
+  broadcast: net.oschina.j2cache.cache.support.redis.SpringRedisPubSubPolicy
+  #  broadcast: jgroups
+  L1: #指定一级缓存提供者为caffeine
+    provider_class: caffeine
+  L2: #指定二级缓存提供者为redis
+    provider_class: net.oschina.j2cache.cache.support.redis.SpringRedisProvider
+    config_section: lettuce
+  sync_ttl_to_redis: true
+  default_cache_null_object: false
+  serialization: fst  #序列化方式：fst、kyro、Java
+caffeine:
+  properties: /caffeine.properties   # 这个配置文件需要放在项目中
+lettuce:
+  mode: single
+  namespace:
+  storage: generic
+  channel: j2cache
+  scheme: redis
+  hosts: ${pinda.redis.ip}:${pinda.redis.port}
+  password: ${pinda.redis.password}
+  database: ${pinda.redis.database}
+  sentinelMasterId:
+  maxTotal: 100
+  maxIdle: 10
+  minIdle: 10
+  timeout: 10000
