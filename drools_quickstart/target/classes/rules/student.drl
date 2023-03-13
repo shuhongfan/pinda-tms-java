@@ -1,0 +1,72 @@
+package student
+import com.shf.drools.entity.Student
+
+/*
+ 当前规则文件用于测试Drools提供的内置方法
+*/
+
+rule "rule_student_age小于10岁"
+    when
+        $student:Student(age<10)
+    then
+        $student.setAge(15);
+//        update方法适用于更新Fact对象，会导致相关规则重新分配
+        update($student);
+        System.out.println("rule_student_age小于10岁 触发了");
+end
+
+rule "rule_student_age小于20岁同时大于10岁"
+    when
+        $student:Student(age>10 && age<20)
+    then
+        $student.setAge(25);
+        update($student)
+        System.out.println("rule_student_age小于20岁同时大于10岁 触发了");
+end
+
+rule "rule_student_age大于20岁"
+    when
+        $student:Student(age > 20)
+    then
+        System.out.println("rule_student_age大于20岁 触发了");
+end
+
+
+/*
+ 当前规则文件用于测试Drools提供的内置方法
+*/
+
+rule "rule_student_age等于10岁"
+    when
+        $s:Student(age == 10)
+    then
+        Student student = new Student();
+        student.setAge(5);
+        insert(student);//插入数据，导致相关的规则会重新匹配
+        System.out.println("规则rule_student_age等于10岁触发");
+end
+
+rule "rule_student_age小于10岁"
+    when
+        $s:Student(age < 10)
+    then
+        $s.setAge(15);
+        update($s);
+        System.out.println("规则rule_student_age小于10岁触发");
+end
+
+rule "rule_student_age小于20岁同时大于10岁"
+    when
+        $s:Student(age < 20 && age > 10)
+    then
+        $s.setAge(25);
+        update($s);
+        System.out.println("规则rule_student_age小于20岁同时大于10岁触发");
+end
+
+rule "rule_student_age大于20岁"
+    when
+        $s:Student(age > 20)
+    then
+        System.out.println("规则rule_student_age大于20岁触发");
+end

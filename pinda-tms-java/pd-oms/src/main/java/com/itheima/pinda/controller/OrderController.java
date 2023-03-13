@@ -39,8 +39,10 @@ import java.util.stream.Collectors;
 public class OrderController {
     @Autowired
     private IOrderService orderService;
+
     @Autowired
     private IOrderLocationService orderLocationService;
+
     @Autowired
     private CustomIdGenerator idGenerator;
 
@@ -52,19 +54,16 @@ public class OrderController {
      */
     @PostMapping("")
     public OrderDTO save(@RequestBody OrderDTO orderDTO, HttpServletResponse res) {
-        log.info("保存订单信息:{}", JSON.toJSONString(orderDTO));
         Order order = new Order();
-        order.setEstimatedArrivalTime(LocalDateTime.now().plus(2, ChronoUnit.DAYS));
+        // 计算订单价格
         Map map = orderService.calculateAmount(orderDTO);
-        log.info("实时计算运费:{}", map);
         orderDTO = (OrderDTO) map.get("orderDto");
         BeanUtils.copyProperties(orderDTO, order);
-        if ("send error msg".equals(orderDTO.getSenderAddress()) || "receive error msg".equals(orderDTO.getReceiverAddress())) {
+        if ("sender error msg".equals(orderDTO.getSenderAddress()) || "receiver error msg".equals(orderDTO.getReceiverAddress())) {
             return orderDTO;
         }
-        order.setAmount(new BigDecimal(map.getOrDefault("amount", "23").toString()));
+        order.setAmount(new BigDecimal(map.getOrDefault("amount", "20").toString()));
         orderService.saveOrder(order);
-        log.info("订单信息入库:{}", order);
         OrderDTO result = new OrderDTO();
         BeanUtils.copyProperties(order, result);
         return result;

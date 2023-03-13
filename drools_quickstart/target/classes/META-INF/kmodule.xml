@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<kmodule xmlns="http://www.drools.org/xsd/kmodule">
+    <!--
+        name:指定kbase的名称，可以任意，但是需要唯一
+        packages:指定规则文件的目录，需要根据实际情况填写，否则无法加载到规则文件
+        default:指定当前kbase是否为默认
+    -->
+    <kbase name="myKbase1" packages="rules" default="true">
+        <!--
+            name:指定ksession名称，可以任意，但是需要唯一
+            default:指定当前session是否为默认
+        -->
+        <ksession name="ksession-rule" default="true"/>
+    </kbase>
+</kmodule>

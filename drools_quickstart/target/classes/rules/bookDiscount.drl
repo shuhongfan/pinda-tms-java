@@ -1,0 +1,39 @@
+//图书优惠规则
+package book.discount
+import com.shf.drools.entity.Order
+
+//规则一：所购图书总价在100元以下的没有优惠
+rule "book_discount_1"
+    when
+        $order:Order(originalPrice < 100) // 模式匹配，到规则引擎中（工作内存）查找Oracle对象
+    then
+        $order.setRealPrice($order.getOriginalPrice());
+        System.out.println("成功匹配到规则一：所购图书总价在100元以下的没有优惠");
+end
+
+//规则二：所购图书总价在100到200元的优惠20元
+rule "book_discount_2"
+    when
+        $order:Order(originalPrice < 200 && originalPrice >= 100)
+    then
+        $order.setRealPrice($order.getOriginalPrice() - 20);
+        System.out.println("成功匹配到规则二：所购图书总价在100到200元的优惠20元");
+end
+
+//规则三：所购图书总价在200到300元的优惠50元
+rule "book_discount_3"
+    when
+        $order:Order(originalPrice <= 300 && originalPrice >= 200)
+    then
+        $order.setRealPrice($order.getOriginalPrice() - 50);
+        System.out.println("成功匹配到规则三：所购图书总价在200到300元的优惠50元");
+end
+
+//规则四：所购图书总价在300元以上的优惠100元
+rule "book_discount_4"
+    when
+        $order:Order(originalPrice >= 300)
+    then
+        $order.setRealPrice($order.getOriginalPrice() - 100);
+        System.out.println("成功匹配到规则四：所购图书总价在300元以上的优惠100元");
+end

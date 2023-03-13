@@ -8,8 +8,8 @@ import com.itheima.pinda.service.impl.DroolsRulesServiceImpl
 dialect "java"
 
 rule "1千克以内20元"
-    activation-group "mygroup"
-    salience 10
+    activation-group "mygroup" // 设置分组
+    salience 10 // 设置优先级,越大越先执行
     when
         addressRule : AddressRule(totalWeight != null && totalWeight <= 1.00)
         checkResult : AddressCheckResult()

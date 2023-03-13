@@ -6,17 +6,26 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itheima.pinda.DTO.OrderDTO;
 import com.itheima.pinda.DTO.OrderSearchDTO;
+import com.itheima.pinda.common.utils.BaiduMapUtils;
 import com.itheima.pinda.common.utils.CustomIdGenerator;
 import com.itheima.pinda.entity.Order;
+import com.itheima.pinda.entity.fact.AddressCheckResult;
+import com.itheima.pinda.entity.fact.AddressRule;
 import com.itheima.pinda.enums.OrderPaymentStatus;
 import com.itheima.pinda.enums.OrderPickupType;
 import com.itheima.pinda.enums.OrderStatus;
 import com.itheima.pinda.mapper.OrderMapper;
 import com.itheima.pinda.service.IOrderService;
 import org.apache.commons.lang.StringUtils;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +36,9 @@ import java.util.Map;
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
     @Autowired
     private CustomIdGenerator idGenerator;
+
+    @Autowired
+    private KieContainer kieContainer;
 
     @Override
     public Order saveOrder(Order order) {
@@ -118,8 +130,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return page(ipage, orderQueryWrapper);
     }
 
-    //@Autowired
-    //private KieContainer kieContainer;
 
     /**
      * 计算订单价格
@@ -127,6 +137,44 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      * @return
      */
     public Map calculateAmount(OrderDTO orderDTO) {
+        orderDTO = getDistance(orderDTO);
+
+        if("sender error msg".equals(orderDTO.getSenderAddress()) || "receiver error msg".equals(orderDTO.getReceiverAddress())){
+            //地址解析失败，直接返回
+            Map map = new HashMap();
+            map.put("amount","0");
+            map.put("errorMsg","无法计算订单距离和订单价格，请输入真实地址");
+            map.put("orderDto",orderDTO);
+            return map;
+        }
+
+//        KieSession kieSession = kieContainer.newKieSession();
+        KieSession kieSession = ReloadDroolsRulesService.kieContainer.newKieSession();
+
+//        设置Fact对象
+        AddressRule addressRule = new AddressRule();
+        addressRule.setTotalWeight(orderDTO.getOrderCargoDto().getTotalWeight().doubleValue());
+        addressRule.setDistance(orderDTO.getDistance().doubleValue());
+
+//        将对象加入到工作内存
+        kieSession.insert(addressRule);
+
+        AddressCheckResult addressCheckResult = new AddressCheckResult();
+        kieSession.insert(addressCheckResult);
+
+        int result = kieSession.fireAllRules();
+        System.out.println("触发了" + result + "条规则");
+        kieSession.destroy();
+
+        if (addressCheckResult.isPostCodeResult()) {
+            System.out.println("规则匹配成功,订单价格为:" + addressCheckResult.getResult());
+            orderDTO.setAmount(new BigDecimal(addressCheckResult.getResult()));
+
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("orderDto",orderDTO);
+            map.put("amount",addressCheckResult.getResult());
+            return map;
+        }
         return null;
     }
 
@@ -136,7 +184,26 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      * @return
      */
     public OrderDTO getDistance(OrderDTO orderDTO){
-        //调用百度地图服务接口获取寄件人地址对应的坐标经纬度
-        return null;
+//        调用百度地图服务接口获取寄件人地址对应的坐标经纬度
+        String begin = BaiduMapUtils.getCoordinate(orderDTO.getSenderAddress());
+        if (begin == null) {
+            orderDTO.setSenderAddress("sender error msg");
+            return orderDTO;
+        }
+
+//        调用百度地图服务接口获取收件人地址对应的坐标经纬度
+        String end = BaiduMapUtils.getCoordinate(orderDTO.getReceiverAddress());
+        if (end == null) {
+            orderDTO.setReceiverAddress("receiver error msg");
+            return orderDTO;
+        }
+
+        Double distance = BaiduMapUtils.getDistance(begin, end);
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        decimalFormat.format(distance / 1000);
+
+        orderDTO.setDistance(new BigDecimal(distance));
+
+        return orderDTO;
     }
 }
